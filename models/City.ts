@@ -22,7 +22,7 @@ class City {
     coord: Coordinates;
     clouds: Clouds;
 
-    constructor(name : string) {
+    constructor(name: string) {
         this.name = name;
     }
 }

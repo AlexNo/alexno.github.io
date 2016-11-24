@@ -6,32 +6,35 @@ class WeatherAPI {
 
     private apiURL: string = config.weatherAPI;
 
-    private buildRequest(params: Request) {
-        var url = this.apiURL.concat('?');
+    private buildRequest(params: Request): string {
+        let url = `${this.apiURL}?`;
 
-        Object.keys(params).forEach(key => url = url.concat(`${key}=${params[key]}&`));
+        url = Object.keys(params).reduce((url, key) => {
+            return `${url}${key}=${params[key]}&`;
+        }, url);
         return url;
     }
-    
-    private getPosition() {
-        return new Promise((resolve: any, reject: any) => {
+
+    private getPosition(): Promise<Geoposition> {
+        return new Promise<Geoposition>((resolve, reject) => {
             navigator.geolocation.getCurrentPosition((pos: Geoposition) => {
                 resolve(pos);
             });
         })
     }
-    
+
     fetch() {
         let params = new Request();
-        
+
         params.APPID = config.weatherAPIKey;
         params.cnt = config.countCities;
 
         return this.getPosition().then((position: Geoposition) => {
             params.lat = position.coords.latitude;
             params.lon = position.coords.longitude;
-            console.log(this.buildRequest(params));
             return fetch(this.buildRequest(params));
+        }).then(response => {
+            return response.json();
         });
     }
 }

@@ -10,32 +10,28 @@
             <p class="flow-text">Weather in the near cities</p>
         </div>
         <div class="row">
-            <table>
+            <table id="weather">
                 <thead>
                 <tr>
-                    <th data-field="id">Name</th>
-                    <th data-field="name">Item Name</th>
-                    <th data-field="price">Item Price</th>
+                    <th data-field="id">City</th>
+                    <th data-field="name">Temperature</th>
+                    <th data-field="price">Wind Speed</th>
                 </tr>
                 </thead>
 
-                <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                </tr>
-                <tr>
-                    <td>Alan</td>
-                    <td>Jellybean</td>
-                    <td>$3.76</td>
-                </tr>
-                <tr>
-                    <td>Jonathan</td>
-                    <td>Lollipop</td>
-                    <td>$7.00</td>
-                </tr>
+                <tbody id="weather-body">
+
                 </tbody>
+                <tfoot id="weather-footer">
+                <tr>
+                    <td colspan="3">
+                        <ul class="pagination">
+                            <li><a href="#!" id="prev">Prev</a></li>
+                            <li class="waves-effect" id="next"><a href="#!">Next</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                </tfoot>
             </table>
         </div>
     </div>

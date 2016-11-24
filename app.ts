@@ -1,19 +1,10 @@
-import City from './models/City';
-import WeatherAPI from './utils/WeatherAPI';
+import WeatherAPI from './libs/WeatherAPI';
+import WeatherGrid from './libs/WeatherGrid';
 
 import 'materialize-css/dist/css/materialize.min.css';
 
-const city : City = new City("Minsk");
-
 let api = new WeatherAPI();
 
-console.log(city);
-
-api.fetch();
-
-
-function hello(name: string) {
-    return 'Hello '+ name;
-}
-
-export {hello};
+api.fetch().then(data => {
+    new WeatherGrid(data.list);
+});

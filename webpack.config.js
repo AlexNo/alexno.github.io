@@ -55,7 +55,7 @@ module.exports = {
     module: {
         loaders: [{
             test: /\.ts$/,
-            loader: 'ts'
+            loader: 'ts!tslint'
         }, {
             test: /\.html$/,
             loader: 'html'
@@ -67,7 +67,7 @@ module.exports = {
             loader: 'style!css!stylus'
         }, {
             test: /\.(png|jpg|svg|ttf|eof|eot|woff|woff2|gif)$/,
-            loader: 'file?name=/images/[name].[hash].[ext]?[hash]'
+            loader: 'file?name=/images/[name].[hash].[ext]'
         }, {
             test: /\.json$/,
             loader: 'json'
