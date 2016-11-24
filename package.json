@@ -16,6 +16,8 @@
   },
   "devDependencies": {
     "@types/core-js": "^0.9.34",
+    "@types/es6-shim": "^0.31.32",
+    "@types/googlemaps": "^3.25.37",
     "@types/whatwg-fetch": "0.0.32",
     "css-loader": "^0.26.0",
     "extract-text-webpack-plugin": "^1.0.1",

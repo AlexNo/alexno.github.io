@@ -14,7 +14,8 @@
     ],
     "types": [
       "core-js",
-      "whatwg-fetch"
+      "whatwg-fetch",
+      "googlemaps"
     ]
   }
 }

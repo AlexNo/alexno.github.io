@@ -8,12 +8,11 @@ module.exports = {
     entry: {
         app: './app.ts',
         vendor: [
-            'typescript'
         ]
     },
     output: {
         path: __dirname + '/dist',
-        filename: NODE_ENV === 'PRODACTION' ? 'js/[name].[hash].js' : '[name].js'
+        filename: NODE_ENV === 'prod' ? 'js/[name].[hash].js' : '[name].js'
     },
 
     watchOptions: {
@@ -38,12 +37,19 @@ module.exports = {
         new ExtractTextPlugin('styles.css'),
 
         new HtmlWebpackPlugin({
-            template: 'index.html',
+            template: 'templates/index.html',
             inject: 'body',
+            filename: '../index.html',
             hash: true,
             chunks: ['vendor', 'app']
         })
     ],
+
+    externals: {
+        // require("jquery") is external and available
+        //  on the global var jQuery
+        "google": "google"
+    },
 
     resolve: {
         modulesDirectories: [
@@ -80,7 +86,7 @@ module.exports = {
     }
 };
 
-if(NODE_ENV == 'PRODUCTION'){
+if(NODE_ENV == 'prod'){
     module.exports.plugins.push(
         new webpack.optimize.UglifyJsPlugin({
             compress: {
