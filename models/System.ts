@@ -1,10 +1,10 @@
 class System {
-    id: number;
-    type: number;
-    message: number;
+    // id: number;
+    // type: number;
+    // message: number;
     country: string;
-    sunrise: Date;
-    sunset: Date;
+    // sunrise: Date;
+    // sunset: Date;
 
     constructor() {
     }

@@ -10,15 +10,15 @@ import Clouds from './Clouds';
 class City {
     id: number;
     name: string;
-    cod: number;
-    dt: Date;
-    base: string;
+    // cod: number;
+    dt: number;
+    // base: string;
     wind: Wind;
-    weather: Weather;
+    weather: Array<Weather>;
     main: Temperature;
     sys: System;
-    snow: Snow;
-    rain: Rain;
+    // snow: Snow;
+    // rain: Rain;
     coord: Coordinates;
     clouds: Clouds;
 

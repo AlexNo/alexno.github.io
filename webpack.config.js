@@ -1,4 +1,4 @@
-const NODE_ENV = process.env.NODE_ENV || 'DEV';
+const NODE_ENV = process.env.NODE_ENV || 'dev';
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -6,8 +6,11 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        app: './app.ts',
+        app: './app/',
         vendor: [
+            '@angular/core',
+            '@angular/platform-browser',
+            '@angular/platform-browser-dynamic'
         ]
     },
     output: {
@@ -24,11 +27,11 @@ module.exports = {
     plugins: [
         new webpack.NoErrorsPlugin(),
 
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     // The order of this array matters
-        //     names: ['common', 'vendor'],
-        //     minChunks: 2
-        // }),
+        new webpack.optimize.CommonsChunkPlugin({
+            // The order of this array matters
+            names: ['common', 'vendor'],
+            minChunks: 2
+        }),
 
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
@@ -67,10 +70,11 @@ module.exports = {
             loader: 'html'
         }, {
             test: /\.css$/,
-            loader: ExtractTextPlugin.extract('style', 'css')
+            loader: NODE_ENV == 'prod' ? 'style!css' : ExtractTextPlugin.extract('style', 'css')
         }, {
             test: /\.styl$/,
-            loader: 'style!css!stylus'
+            exclude: /node_modules/,
+            loader: 'raw!stylus'
         }, {
             test: /\.(png|jpg|svg|ttf|eof|eot|woff|woff2|gif)$/,
             loader: 'file?name=/images/[name].[hash].[ext]'

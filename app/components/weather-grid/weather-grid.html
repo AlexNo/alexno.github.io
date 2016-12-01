@@ -1,0 +1,32 @@
+<table>
+    <thead>
+    <tr>
+        <th data-field="id" (click)="changeDirection()">
+            City
+            <i class="material-icons">keyboard_arrow_{{sortDirection}}</i>
+        </th>
+        <th data-field="name">Temperature</th>
+        <th data-field="price">Wind Speed</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let city of page.list">
+        <td (click)="selectCity(city)">
+            <a href="#!" class="collection-item">{{city.name}}</a>
+        </td>
+        <td>{{city.main.temp}}</td>
+        <td>{{city.wind.speed}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="3">
+            <weather-pagination [current]="page.currentPage"
+                                [total]="page.totalPages"
+                                (onPage)="toPage($event)">
+            </weather-pagination>
+        </td>
+    </tr>
+    </tfoot>
+</table>
