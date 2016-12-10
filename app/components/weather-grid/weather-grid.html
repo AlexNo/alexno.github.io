@@ -5,7 +5,14 @@
             City
             <i class="material-icons">keyboard_arrow_{{sortDirection}}</i>
         </th>
-        <th data-field="name">Temperature</th>
+        <th data-field="name">Temperature (
+            <a *ngFor="let m of temperatureMeasurements"
+               href="#!"
+               class="collection-item"
+               (click)="changeTemperatureMeasurement(m)">
+                {{m}}
+            </a>)
+        </th>
         <th data-field="price">Wind Speed</th>
     </tr>
     </thead>
@@ -15,7 +22,7 @@
         <td (click)="selectCity(city)">
             <a href="#!" class="collection-item">{{city.name}}</a>
         </td>
-        <td>{{city.main.temp}}</td>
+        <td>{{city.main.temp | temperature : sourceMeasurement : displayMeasurement}}</td>
         <td>{{city.wind.speed}}</td>
     </tr>
     </tbody>

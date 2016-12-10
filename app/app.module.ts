@@ -12,6 +12,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 
 import WeatherService from './services/weather';
 import LocationService from "./services/LocationService";
+import {TemperaturePipe} from "./pipes/temperature";
 
 @NgModule({
     imports:      [
@@ -27,7 +28,8 @@ import LocationService from "./services/LocationService";
         WeatherView,
         HeaderComponent,
         FooterComponent,
-        PaginationComponent
+        PaginationComponent,
+        TemperaturePipe
     ],
     providers: [
         WeatherService,

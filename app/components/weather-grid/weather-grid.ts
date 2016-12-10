@@ -12,6 +12,12 @@ import Coordinates from "../../../models/Coordinates";
     templateUrl: 'app/components/weather-grid/weather-grid.html'
 })
 export class WeatherGrid implements OnInit {
+
+    sourceMeasurement: string = 'K';
+    displayMeasurement: string = 'K';
+
+    temperatureMeasurements: Array<string> = ['K', 'C', 'F'];
+
     private cities: Array<City>;
     private page: Page = new Page();
     private sortDirection: string = 'up';
@@ -47,6 +53,10 @@ export class WeatherGrid implements OnInit {
         let direction: string = this.sortDirection;
         this.sortDirection = direction === 'up' ? 'down' : 'up';
         this.sort();
+    }
+
+    changeTemperatureMeasurement(measurement: string): void {
+        this.displayMeasurement = measurement;
     }
 
     private sort(): void {
