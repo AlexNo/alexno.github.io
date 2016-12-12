@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import WeatherService from "../../services/weather";
+import WeatherService from "../../services/WeatherService";
 import LocationService from "../../services/LocationService";
 import Geoposition from "../../../models/Geoposition";
 import Coordinates from "../../../models/Coordinates";

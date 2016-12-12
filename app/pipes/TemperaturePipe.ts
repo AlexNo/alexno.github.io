@@ -7,25 +7,13 @@ import {Pipe, PipeTransform} from '@angular/core';
     name: 'temperature'
 })
 export class TemperaturePipe implements PipeTransform {
-    private converter: TemperatureConverter = new TemperatureConverter();
-
-    transform(value: number, from: string = 'K', to: string = 'C'): number {
-        if (from === to) {
-            return value;
-        }
-
-        return this.converter[from].get(to)(value);
-    }
-}
-
-class TemperatureConverter {
-    F: Map<string, (value: number) => number> =
+    private F: Map<string, (value: number) => number> =
         new Map<string, (value: number) => number>();
 
-    C: Map<string, (value: number) => number> =
+    private C: Map<string, (value: number) => number> =
         new Map<string, (value: number) => number>();
 
-    K: Map<string, (value: number) => number> =
+    private K: Map<string, (value: number) => number> =
         new Map<string, (value: number) => number>();
 
     constructor() {
@@ -40,6 +28,14 @@ class TemperatureConverter {
         this.K.set('F', this.fromKtoF);
         this.K.set('C', this.fromKtoC);
         this.K.set('K', this.notConvert);
+    }
+
+    transform(value: number, from: string = 'K', to: string = 'C'): number {
+        if (from === to) {
+            return value;
+        }
+
+        return this[from].get(to)(value);
     }
 
     private notConvert(value: number): number {

@@ -2,7 +2,7 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 import City from "../../../models/City";
 
-import WeatherService from '../../services/weather';
+import WeatherService from '../../services/WeatherService';
 import Page from "../../../models/paging/Page";
 import Coordinates from "../../../models/Coordinates";
 

@@ -1,19 +1,21 @@
 import {Injectable}    from '@angular/core';
-import {Http, URLSearchParams} from '@angular/http';
+import {Http, URLSearchParams, Response} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 import City from "../../models/City";
 import Geoposition from "../../models/Geoposition";
 
 import {CITIES} from '../../fixtures/mock'
 import LocationService from "./LocationService";
-import Response from "../../models/api/Response";
+import {Observable} from "rxjs";
 
 @Injectable()
 export default class WeatherService {
 
     private weatherApiUrl: string = 'http://api.openweathermap.org/data/2.5/find';
+    private weatherApiCityUrl: string = 'http://api.openweathermap.org/data/2.5/weather';
     private weatherAPIKey: string = '5d574c9fb3fecaa51a57b854b66a6c48';
     private countCities: number = 50;
 
@@ -22,7 +24,7 @@ export default class WeatherService {
 
     getWeather(): Promise<City[]> {
         console.log('Load weather data');
-        let weatherPromise = this.buildRequestParams();
+        let weatherPromise = this.paramsForCollectionOfCities();
 
         // if (NODE_ENV !== 'dev') {
         //     weatherPromise.then((params:URLSearchParams) => {
@@ -42,9 +44,27 @@ export default class WeatherService {
             .catch(err => console.error('Error', err));
     }
 
-    private buildRequestParams(): Promise<URLSearchParams> {
+    getCityWeather(cityName: string): Promise<City> {
+
+        // this.http.get('http://api.openweathermap.org/data/2.5/weather?APPID=5d574c9fb3fecaa51a57b854b66a6c48&q=Atolina').map((res: Response) => {
+        //     res.json();
+        // });
+        return fetch(`${this.weatherApiCityUrl}?APPID=${this.weatherAPIKey}&q=${cityName}`)
+            .then(r => {
+                let data = r.json();
+                return data;
+            });
+        // return this.http.get(this.weatherApiCityUrl, {
+        //     search: this.paramsForCity(cityName)
+        // }).toPromise().then(r => {
+        //     return r.json();
+        // });
+    }
+
+    private paramsForCollectionOfCities(): Promise<URLSearchParams> {
         let params = new URLSearchParams();
-        params.set('APPID', this.weatherAPIKey);
+
+        this.addAuthID(params);
         params.set('cnt', String(this.countCities));
 
         return this.locationSrv.getPosition().then((position: Geoposition) => {
@@ -53,5 +73,20 @@ export default class WeatherService {
 
             return params;
         });
+    }
+
+    private paramsForCity(city: string): URLSearchParams {
+        let params = new URLSearchParams();
+        this.addAuthID(params);
+
+        params.set('q', city);
+
+        return params;
+    }
+
+    private addAuthID(params: URLSearchParams): URLSearchParams {
+        params.set('APPID', this.weatherAPIKey);
+
+        return params;
     }
 }

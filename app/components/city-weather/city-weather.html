@@ -1,0 +1,17 @@
+<h1>City weather</h1>
+<div class="row">
+    <div class="col s12">
+        <div class="row">
+            <div class="input-field col s10">
+                <input type="text" class="validate" [(ngModel)]="city">
+                <label>City</label>
+            </div>
+            <div class="input-field col s2">
+                <a class="waves-effect waves-light btn" (click)="findCityWeather()">search</a>
+            </div>
+        </div>
+        <div class="row" [innerHTML]="cityName | cityWeather | async | weatherFormatter">
+            <!--{{cityName | cityWeather | async | weatherFormatter}}-->
+        </div>
+    </div>
+</div>
