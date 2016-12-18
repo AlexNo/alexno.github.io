@@ -3,6 +3,7 @@ import WeatherService from "../../services/WeatherService";
 import LocationService from "../../services/LocationService";
 import Geoposition from "../../../models/Geoposition";
 import Coordinates from "../../../models/Coordinates";
+import City from "../../../models/City";
 
 @Component({
     selector: 'weather-view',
@@ -14,19 +15,39 @@ export class WeatherView implements OnInit {
     lat: number;
     lng: number;
     zoom: number = 4;
+    
+    cities: Array<City>;
 
-    constructor(private locationSrv: LocationService) {
+    constructor(private locationSrv: LocationService, private weather: WeatherService) {
     }
 
     ngOnInit() {
         this.locationSrv.getPosition().then((position: Geoposition) => {
             this.lat = position.coords.latitude;
             this.lng = position.coords.longitude;
-        })
+        });
+
+        this.weather.getWeather().then(data => {
+            this.cities = data;
+        });
     }
 
-    changeMarkerPosition(coords: Coordinates) {
-        this.lat = coords.lat;
-        this.lng = coords.lon;
+    selectCity(city: City) {
+        this.cities = this.cities.map(elem => {
+            if (elem.isFavorite) {
+                elem.isFavorite = false;
+            }
+            if (elem.id === city.id) {
+                elem.isFavorite = true;
+            }
+            return elem;
+        });
+
+        this.lat = city.coord.lat;
+        this.lng = city.coord.lon;
+    }
+
+    deleteCity(cityId: number) {
+        this.cities = this.cities.filter(city => city.id !== cityId);
     }
 }

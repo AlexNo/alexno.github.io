@@ -1,13 +1,10 @@
-class System {
-    // id: number;
-    // type: number;
-    // message: number;
+interface System {
+    id?: number;
+    type?: number;
+    message?: number;
     country: string;
-    // sunrise: Date;
-    // sunset: Date;
-
-    constructor() {
-    }
+    sunrise?: Date;
+    sunset?: Date;
 }
 
 export default System;

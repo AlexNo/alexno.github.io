@@ -1,8 +1,5 @@
-class Snow {
+interface Snow {
     '3h': number;
-
-    constructor() {
-    }
 }
 
 export default Snow;

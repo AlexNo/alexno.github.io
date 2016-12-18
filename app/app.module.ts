@@ -8,7 +8,8 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { AppComponent }  from './app.component';
 import { WeatherGrid }  from './components/weather-grid';
 import { WeatherView }  from './components/weather-view';
-import { CityWeatherComponent }  from './components/city-weather';
+import { CityWeatherSearchComponent }  from './components/city-weather-search';
+import { CityWeatherDetailComponent }  from './components/city-weather-detail';
 import { HeaderComponent }  from './components/header';
 import { FooterComponent }  from './components/footer';
 import { PaginationComponent }  from './components/pagination';
@@ -31,7 +32,8 @@ import {CityWeatherPipe, WeatherFormatterPipe} from "./pipes/CityWeatherPipes";
         AppComponent,
         WeatherGrid,
         WeatherView,
-        CityWeatherComponent,
+        CityWeatherSearchComponent,
+        CityWeatherDetailComponent,
         HeaderComponent,
         FooterComponent,
         PaginationComponent,

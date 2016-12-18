@@ -7,24 +7,21 @@ import Rain from './Rain';
 import Coordinates from './Coordinates';
 import Clouds from './Clouds';
 
-class City {
+interface City {
     id: number;
     name: string;
-    // cod: number;
+    cod?: number;
     dt: number;
-    // base: string;
+    base?: string;
     wind: Wind;
     weather: Array<Weather>;
     main: Temperature;
     sys: System;
-    // snow: Snow;
-    // rain: Rain;
+    snow?: Snow;
+    rain?: Rain;
     coord: Coordinates;
     clouds: Clouds;
-
-    constructor(name: string) {
-        this.name = name;
-    }
+    isFavorite?: boolean;
 }
 
 export default City;

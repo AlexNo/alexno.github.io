@@ -1,9 +1,6 @@
-class Coordinates {
+interface Coordinates {
     lon: number;
     lat: number;
-
-    constructor() {
-    }
 }
 
 export default Coordinates;

@@ -1,8 +1,5 @@
-class Clouds {
+interface Clouds {
     all: number;
-
-    constructor() {
-    }
 }
 
 export default Clouds;

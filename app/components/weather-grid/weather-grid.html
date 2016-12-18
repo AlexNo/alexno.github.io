@@ -16,11 +16,12 @@
         </th>
         <th>Clouds, %</th>
         <th>Wind Speed</th>
+        <th></th>
     </tr>
     </thead>
 
     <tbody>
-    <tr *ngFor="let city of page.list">
+    <tr *ngFor="let city of page.list" [ngClass]="{'favorite': city.isFavorite}">
         <td>{{city.dt * 1000 | date: 'dd/MM/yyyy'}}</td>
         <td (click)="selectCity(city)">
             <a href="#!" class="collection-item">{{city.name}}</a>
@@ -28,6 +29,9 @@
         <td>{{city.main.temp | temperature : sourceMeasurement : displayMeasurement}}</td>
         <td>{{city.clouds.all}}</td>
         <td>{{city.wind.speed}}</td>
+        <td>
+            <i class="material-icons delete" (click)="remove(city)">delete</i>
+        </td>
     </tr>
     </tbody>
     <tfoot>

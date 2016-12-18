@@ -10,8 +10,8 @@
                 <a class="waves-effect waves-light btn" (click)="findCityWeather()">search</a>
             </div>
         </div>
-        <div class="row" [innerHTML]="cityName | cityWeather | async | weatherFormatter">
-            <!--{{cityName | cityWeather | async | weatherFormatter}}-->
-        </div>
+        <!--<div class="row" [innerHTML]="cityName | cityWeather | async | weatherFormatter">-->
+        <!--</div>-->
+        <city-weather-detail [city]="cityName | cityWeather | async"></city-weather-detail>
     </div>
 </div>

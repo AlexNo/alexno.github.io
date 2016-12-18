@@ -1,4 +1,4 @@
-class Rain {
+interface Rain {
     '3h': number;
 }
 

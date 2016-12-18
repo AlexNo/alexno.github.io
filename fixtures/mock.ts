@@ -1,4 +1,3 @@
-import Response from '../models/api/Response';
 import City from '../models/City';
 
 export const CITIES: City[] = [

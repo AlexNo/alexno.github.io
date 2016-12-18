@@ -1,9 +1,6 @@
-class Wind {
+interface Wind {
     speed: number;
     deg: number;
-
-    constructor() {
-    }
 }
 
 export default Wind;

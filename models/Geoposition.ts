@@ -1,9 +1,9 @@
-class Coords {
+interface Coords {
     latitude: number;
     longitude: number;
 }
 
-class Geoposition {
+interface Geoposition {
     timestamp: number;
     coords: Coords
 }

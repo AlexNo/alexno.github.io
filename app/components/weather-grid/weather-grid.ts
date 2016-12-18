@@ -1,41 +1,56 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnChanges,
+    Input,
+    Output,
+    EventEmitter,
+    SimpleChange,
+    ChangeDetectionStrategy
+} from '@angular/core';
 
 import City from "../../../models/City";
 
 import WeatherService from '../../services/WeatherService';
 import Page from "../../../models/paging/Page";
-import Coordinates from "../../../models/Coordinates";
 
 @Component({
     selector: 'weather-grid',
     styleUrls: ['app/components/weather-grid/weather-grid.styl'],
-    templateUrl: 'app/components/weather-grid/weather-grid.html'
+    templateUrl: 'app/components/weather-grid/weather-grid.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WeatherGrid implements OnInit {
+export class WeatherGrid implements OnInit, OnChanges {
 
-    sourceMeasurement: string = 'K';
-    displayMeasurement: string = 'K';
+    private sourceMeasurement: string = 'K';
+    private displayMeasurement: string = 'K';
+    private temperatureMeasurements: Array<string> = ['K', 'C', 'F'];
 
-    temperatureMeasurements: Array<string> = ['K', 'C', 'F'];
-
-    private cities: Array<City>;
     private page: Page = new Page();
     private sortDirection: string = 'up';
 
-    @Output('onSelect') onSelect = new EventEmitter<Coordinates>();
+    @Input('cities') cities: Array<City>;
+    @Output('onSelect') onSelect = new EventEmitter<City>();
+    @Output('onDelete') onDelete = new EventEmitter<number>();
 
     constructor(private weather: WeatherService) { }
 
     ngOnInit() {
         console.log('WeatherGrid initialized!');
+    }
 
-        this.weather.getWeather().then(data => {
-            this.cities = data;
-            this.page.totalPages = Math.ceil(this.cities.length / this.page.pageSize);
-            console.log('Init total pages', this.page);
-            this.sort();
-            this.render();
-        });
+    ngOnChanges(changes: {[propKey: string]: SimpleChange}): void {
+        let keys = Object.keys(changes);
+        
+        for(let propName of keys) {
+            if (this.cities && propName === 'cities') {
+                this.page.totalPages =
+                    Math.ceil(this.cities.length / this.page.pageSize);
+                this.sort();
+                this.render();
+            }
+        }
+
     }
 
     toPage(page: number): void {
@@ -44,9 +59,11 @@ export class WeatherGrid implements OnInit {
     }
 
     selectCity(city: City) {
-        console.log(city);
+        this.onSelect.emit(city);
+    }
 
-        this.onSelect.emit(city.coord);
+    remove(city: City) {
+        this.onDelete.emit(city.id);
     }
 
     changeDirection(): void {
