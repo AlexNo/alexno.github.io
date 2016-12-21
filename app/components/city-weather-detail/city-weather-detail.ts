@@ -8,7 +8,7 @@ import City from "../../../models/City";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityWeatherDetailComponent implements OnInit {
-    
+
     @Input('city') city: City;
 
     constructor() { }

@@ -1,7 +1,6 @@
 <city-weather-search></city-weather-search>
 
-<weather-grid [cities]="cities"
-              (onSelect)="selectCity($event)"
+<weather-grid (onSelect)="selectCity($event)"
               (onDelete)="deleteCity($event)"></weather-grid>
 
 <sebm-google-map [latitude]="lat" [longitude]="lng">

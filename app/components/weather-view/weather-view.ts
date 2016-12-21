@@ -15,7 +15,7 @@ export class WeatherView implements OnInit {
     lat: number;
     lng: number;
     zoom: number = 4;
-    
+
     cities: Array<City>;
 
     constructor(private locationSrv: LocationService, private weather: WeatherService) {
