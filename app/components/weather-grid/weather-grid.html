@@ -28,7 +28,12 @@
         </td>
         <td>{{city.main.temp | temperature : sourceMeasurement : displayMeasurement}}</td>
         <td>{{city.clouds.all}}</td>
-        <td>{{city.wind.speed}} ({{city.wind.deg}})</td>
+        <td>{{city.wind.speed}}
+            <i class="material-icons"
+               [ngStyle]="{'transform': 'rotate(' + city.wind.deg + 'deg)'}">
+                trending_flat
+            </i>
+        </td>
         <td>
             <i class="material-icons delete" (click)="remove(city)">delete</i>
         </td>
