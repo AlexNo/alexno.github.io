@@ -14,6 +14,8 @@ import { HeaderComponent }  from './components/header';
 import { FooterComponent }  from './components/footer';
 import { PaginationComponent }  from './components/pagination';
 
+import {ENV_CONFIG, APP_CONFIG} from './config';
+
 import WeatherService from './services/WeatherService';
 import LocationService from "./services/LocationService";
 import {TemperaturePipe} from "./pipes/TemperaturePipe";
@@ -25,7 +27,7 @@ import {CityWeatherPipe, WeatherFormatterPipe} from "./pipes/CityWeatherPipes";
         HttpModule,
         FormsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDSZCmwxQOLWJJGK4pmRSjGuleSKPzHQEI'
+            apiKey: ENV_CONFIG.mapsAPI
         })
     ],
     declarations: [
@@ -43,7 +45,8 @@ import {CityWeatherPipe, WeatherFormatterPipe} from "./pipes/CityWeatherPipes";
     ],
     providers: [
         WeatherService,
-        LocationService
+        LocationService,
+        {provide: APP_CONFIG, useValue: ENV_CONFIG}
     ],
     bootstrap:    [ AppComponent ]
 })
