@@ -1,4 +1,4 @@
-import City from '../models/City';
+import City from '../handlers/app/client/models/City';
 
 export const CITIES: City[] = [
         {

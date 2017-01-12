@@ -1,12 +1,12 @@
 const NODE_ENV = process.env.NODE_ENV || 'dev';
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require('path');
 
 module.exports = {
     entry: {
-        app: './app/',
+        app: './handlers/app/client/',
+        // test: './test'
         vendor: [
             '@angular/core',
             '@angular/platform-browser',
@@ -14,8 +14,8 @@ module.exports = {
         ]
     },
     output: {
-        path: __dirname + '/dist',
-        filename: NODE_ENV === 'prod' ? 'js/[name].[hash].js' : '[name].js'
+        path: __dirname + '/public',
+        filename: NODE_ENV === 'prod' ? 'js/[name].[hash].js?[hash]' : '[name].js?[hash]'
     },
 
     watchOptions: {
@@ -39,18 +39,12 @@ module.exports = {
 
         new ExtractTextPlugin('styles.css'),
 
-        new HtmlWebpackPlugin({
-            template: 'templates/index.html',
-            inject: 'body',
-            filename: '../index.html',
-            hash: true,
-            chunks: ['vendor', 'app']
-        })
+        new webpack.HotModuleReplacementPlugin(),
+
+        new webpack.optimize.OccurenceOrderPlugin()
     ],
 
     externals: {
-        // require("jquery") is external and available
-        //  on the global var jQuery
         "google": "google"
     },
 
@@ -61,13 +55,17 @@ module.exports = {
         extensions: ['', '.js', '.ts']
     },
 
+    htmlLoader: {
+        minimize: false // workaround for ng2
+    },
+
     module: {
         loaders: [{
             test: /\.ts$/,
-            loader: 'ts!tslint'
+            loader: 'awesome-typescript-loader!angular2-template-loader'
         }, {
             test: /\.html$/,
-            loader: 'html'
+            loader: 'raw'
         }, {
             test: /\.css$/,
             loader: NODE_ENV == 'prod' ? 'style!css' : ExtractTextPlugin.extract('style', 'css')
@@ -82,11 +80,6 @@ module.exports = {
             test: /\.json$/,
             loader: 'json'
         }]
-    },
-
-    devServer: {
-        host: 'localhost',
-        port: 7007
     }
 };
 
