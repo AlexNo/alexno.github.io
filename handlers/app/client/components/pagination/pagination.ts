@@ -3,7 +3,7 @@ import Page from "../../models/paging/Page";
 
 @Component({
     selector: 'weather-pagination',
-    styleUrls: ['./pagination.css'],
+    // styleUrls: ['./pagination.css'],
     templateUrl: './pagination.html'
 })
 export class PaginationComponent implements OnInit, OnChanges {

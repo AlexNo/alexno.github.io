@@ -1,6 +1,7 @@
 const NODE_ENV = process.env.NODE_ENV || 'dev';
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -8,6 +9,11 @@ module.exports = {
         app: './handlers/app/client/',
         // test: './test'
         vendor: [
+            // 'core-js',
+            // 'core-js/es6',
+            'core-js/es7/reflect',
+            // 'reflect-metadata',
+            'zone.js',
             '@angular/core',
             '@angular/platform-browser',
             '@angular/platform-browser-dynamic'
@@ -41,7 +47,15 @@ module.exports = {
 
         new webpack.HotModuleReplacementPlugin(),
 
-        new webpack.optimize.OccurenceOrderPlugin()
+        new webpack.optimize.OccurenceOrderPlugin(),
+
+        new HtmlWebpackPlugin({
+            template: 'templates/index.html',
+            inject: 'body',
+            filename: '../index.html',
+            hash: true,
+            chunks: ['vendor', 'app']
+        })
     ],
 
     externals: {
@@ -80,6 +94,11 @@ module.exports = {
             test: /\.json$/,
             loader: 'json'
         }]
+    },
+
+    devServer: {
+        host: 'localhost',
+        port: 7007
     }
 };
 

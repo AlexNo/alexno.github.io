@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'city-weather-search',
-    styleUrls: ['./city-weather-search.css'],
+    // styleUrls: ['./city-weather-search.css'],
     templateUrl: './city-weather-search.html'
 })
 export class CityWeatherSearchComponent implements OnInit {

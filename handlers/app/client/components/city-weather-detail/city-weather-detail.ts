@@ -3,7 +3,7 @@ import City from "../../models/City";
 
 @Component({
     selector: 'city-weather-detail',
-    styleUrls: ['./city-weather-detail.css'],
+    // styleUrls: ['./city-weather-detail.css'],
     templateUrl: './city-weather-detail.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })

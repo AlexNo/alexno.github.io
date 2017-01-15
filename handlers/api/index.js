@@ -1,3 +1,8 @@
-/**
- * Created by alex on 1/11/17.
- */
+const mount = require('koa-mount');
+
+exports.init = app => {
+    console.log('API initialized');
+    const router = require('./router');
+    
+    app.use(mount('/api', router.middleware()));
+};

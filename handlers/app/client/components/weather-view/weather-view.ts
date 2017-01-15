@@ -7,7 +7,7 @@ import City from "../../models/City";
 
 @Component({
     selector: 'weather-view',
-    styleUrls: ['./weather-view.css'],
+    // styleUrls: ['./weather-view.css'],
     templateUrl: './weather-view.html'
 })
 export class WeatherView implements OnInit {

@@ -8,7 +8,8 @@ module.exports = {
         'templates',
         'errors',
         'bodyParser',
-        'app'
+        'app',
+        'api'
     ],
     template: {
         // template.root uses config.root

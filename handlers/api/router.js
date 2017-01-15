@@ -1,3 +1,5 @@
-/**
- * Created by alex on 1/11/17.
- */
+const router = require('koa-router')();
+
+router.get('/', require('./controller/weather').get);
+
+module.exports = router;
