@@ -1,6 +1,8 @@
 import {Pipe, PipeTransform, EventEmitter} from '@angular/core';
 import City from "../models/City";
 import WeatherService from "../services/WeatherService";
+import {Observable} from "rxjs";
+
 
 /**
  * Pipe convert
@@ -15,16 +17,16 @@ export class CityWeatherPipe implements PipeTransform {
     constructor(private weatherSrv: WeatherService) {
     }
 
-    transform(value: string): Promise<City> {
+    transform(value: string): Observable<City> {
         return this.findCityWeather(value);
     }
 
-    private findCityWeather(cityName: string): Promise<City> {
+    private findCityWeather(cityName: string): Observable<City> {
         if (this.cityMap.has(cityName)) {
-            return Promise.resolve(this.cityMap.get(cityName));
+            return Observable.of(this.cityMap.get(cityName));
         } else {
             return this.weatherSrv.getCityWeather(cityName)
-                .then((city: City) => {
+                .subscribe((city: City) => {
                     this.cityMap.set(cityName, city);
                     return city;
                 })

@@ -5,6 +5,7 @@ module.exports = {
     handlers: [
         'static',
         'logger',
+        'cors',
         'templates',
         'errors',
         'bodyParser',
@@ -18,5 +19,13 @@ module.exports = {
         }),
         basedir: path.join(process.cwd(), 'templates')
     },
-    root:     process.cwd()
+    root:     process.cwd(),
+
+    weather: {
+        baseApiURL: 'http://api.openweathermap.org/data/2.5',
+        currentAPI: '/find',
+        cityAPI: '/weather',
+        apiKey: '5d574c9fb3fecaa51a57b854b66a6c48',
+        citiesCount: 50
+    }
 };

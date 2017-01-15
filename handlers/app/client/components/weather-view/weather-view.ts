@@ -27,7 +27,7 @@ export class WeatherView implements OnInit {
             this.lng = position.coords.longitude;
         });
 
-        this.weather.getWeather().then(data => {
+        this.weather.getNearbyWeather().subscribe(data => {
             this.cities = data;
         });
     }

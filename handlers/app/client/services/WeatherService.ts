@@ -2,70 +2,60 @@ import {Injectable}    from '@angular/core';
 import {Http, URLSearchParams, Response} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+// import 'rxjs/add/operator/flatMap';
 import 'rxjs/add/operator/map';
 
 import City from "../models/City";
 import Geoposition from "../models/Geoposition";
 
-import {CITIES} from '../../../../fixtures/mock'
 import LocationService from "./LocationService";
 import {Observable} from "rxjs";
+import WeatherResponse from "../models/api/Response";
 
 @Injectable()
 export default class WeatherService {
 
-    private weatherApiUrl: string = 'http://api.openweathermap.org/data/2.5/find';
-    private weatherApiCityUrl: string = 'http://api.openweathermap.org/data/2.5/weather';
-    private weatherAPIKey: string = '5d574c9fb3fecaa51a57b854b66a6c48';
-    private countCities: number = 50;
+    private weatherApi: string = 'http://localhost:3000/api/weather';
+    private cityApi: string = 'http://localhost:3000/api/city';
 
     constructor(private http: Http, private locationSrv: LocationService) {
     };
 
-    getWeather(): Promise<City[]> {
-        console.log('Load weather data');
+    getNearbyWeather(): Observable<City[]> {
         let weatherPromise = this.paramsForCollectionOfCities();
 
-        // if (NODE_ENV !== 'dev') {
-        //     weatherPromise.then((params:URLSearchParams) => {
-        //         console.log('Request params', params);
-        //         console.log('weatherApiUrl', this.weatherApiUrl);
-        //         return this.http.get(this.weatherApiUrl, {
-        //             search: params
-        //         }).toPromise()
-        //     })
-        //         .then((response:Response) => {
-        //             console.log('Response', response.json());
-        //             return response.json().data as City[];
-        //         })
-        // }
-
-        return weatherPromise.then(() => CITIES)
-            .catch(err => console.error('Error', err));
+        return Observable.from(weatherPromise)
+            .flatMap(data => {
+                return this.getWeather(data)
+            })
     }
 
-    getCityWeather(cityName: string): Promise<City> {
+    private getWeather(params:URLSearchParams): Observable<City[]> {
+        return this.http.get(this.weatherApi, {
+            search: params
+        })
+            .map(this.extractData);
+    }
 
-        // this.http.get('http://api.openweathermap.org/data/2.5/weather?APPID=5d574c9fb3fecaa51a57b854b66a6c48&q=Atolina').map((res: Response) => {
-        //     res.json();
-        // });
-        return fetch(`${this.weatherApiCityUrl}?APPID=${this.weatherAPIKey}&q=${cityName}`)
-            .then(r => {
-                let data = r.json();
-                return data;
-            });
-        // return this.http.get(this.weatherApiCityUrl, {
-        //     search: this.paramsForCity(cityName)
-        // }).toPromise().then(r => {
-        //     return r.json();
-        // });
+    getCityWeather(cityName: string): Observable<City> {
+
+        return this.http.get(this.cityApi, {
+            search: this.paramsForCity(cityName)
+        }).map((r: Response): City => {
+            return r.json() as City;
+        });
+    }
+
+    private extractData(res: Response): City[] {
+        let body = res.json() as WeatherResponse;
+        if (body && body.list) {
+            return body.list;
+        }
+        return [];
     }
 
     private paramsForCollectionOfCities(): Promise<URLSearchParams> {
         let params = new URLSearchParams();
-
-        this.addAuthID(params);
-        params.set('cnt', String(this.countCities));
 
         return this.locationSrv.getPosition().then((position: Geoposition) => {
             params.set('lat', String(position.coords.latitude));
@@ -77,16 +67,8 @@ export default class WeatherService {
 
     private paramsForCity(city: string): URLSearchParams {
         let params = new URLSearchParams();
-        this.addAuthID(params);
 
-        params.set('q', city);
-
-        return params;
-    }
-
-    private addAuthID(params: URLSearchParams): URLSearchParams {
-        params.set('APPID', this.weatherAPIKey);
-
+        params.set('city', city);
         return params;
     }
 }

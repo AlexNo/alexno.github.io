@@ -1,10 +1,10 @@
 import City from '../City';
 
-class Response {
+class WeatherResponse {
     message: string;
     cod: string;
     count: number;
     list: Array<City>;
 }
 
-export default Response;
+export default WeatherResponse;
