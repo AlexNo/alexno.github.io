@@ -11,6 +11,7 @@ import Geoposition from "../models/Geoposition";
 import LocationService from "./LocationService";
 import {Observable} from "rxjs";
 import WeatherResponse from "../models/api/Response";
+import CityShort from "../models/CityShort";
 
 @Injectable()
 export default class WeatherService {
@@ -21,20 +22,14 @@ export default class WeatherService {
     constructor(private http: Http, private locationSrv: LocationService) {
     };
 
-    getNearbyWeather(): Observable<City[]> {
+    getNearbyWeather(): Observable<CityShort[]> {
         let weatherPromise = this.paramsForCollectionOfCities();
+        let self = this;
 
         return Observable.from(weatherPromise)
             .flatMap(data => {
-                return this.getWeather(data)
+                return self.getWeather(data)
             })
-    }
-
-    private getWeather(params:URLSearchParams): Observable<City[]> {
-        return this.http.get(this.weatherApi, {
-            search: params
-        })
-            .map(this.extractData);
     }
 
     getCityWeather(cityName: string): Observable<City> {
@@ -47,12 +42,37 @@ export default class WeatherService {
         });
     }
 
-    private extractData(res: Response): City[] {
-        let body = res.json() as WeatherResponse;
-        if (body && body.list) {
-            return body.list;
-        }
-        return [];
+    private getWeather(params:URLSearchParams): Observable<CityShort[]> {
+        return this.http.get(this.weatherApi, {
+            search: params
+        })
+            .map(this.extractData)
+            .map(this.getList)
+            .map(this.toCityShort);
+    }
+
+    private extractData(res: Response) {
+        let body = res.json();
+        return body || {};
+    }
+
+    private getList(data: WeatherResponse): City[] {
+        return data.list ? data.list : [];
+    }
+
+    private toCityShort(cities: City[]): CityShort[] {
+        return cities.map((city: City): CityShort => {
+            return {
+                id: city.id,
+                name: city.name,
+                dt: city.dt,
+                wind: city.wind,
+                temperature: city.main.temp,
+                coord: city.coord,
+                clouds: city.clouds.all,
+                isFavorite: false,
+            }
+        })
     }
 
     private paramsForCollectionOfCities(): Promise<URLSearchParams> {

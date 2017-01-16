@@ -4,6 +4,7 @@ import LocationService from "../../services/LocationService";
 import Geoposition from "../../models/Geoposition";
 import Coordinates from "../../models/Coordinates";
 import City from "../../models/City";
+import CityShort from "../../models/CityShort";
 
 @Component({
     selector: 'weather-view',
@@ -16,7 +17,7 @@ export class WeatherView implements OnInit {
     lng: number;
     zoom: number = 4;
 
-    cities: Array<City>;
+    cities: Array<CityShort>;
 
     constructor(private locationSrv: LocationService, private weather: WeatherService) {
     }
