@@ -6,8 +6,7 @@ const rp = require('request-promise');
 let weatherStore = {};
 
 exports.get = async (ctx, next) => {
-    console.log('render main page');
-    ctx.body = 'Weather API UP!';
+    ctx.body = `${config.app.name} status: UP!`;
 };
 
 exports.weather = async (ctx, next) => {
