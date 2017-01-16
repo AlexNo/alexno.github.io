@@ -14,11 +14,18 @@ export class CityWeatherPipe implements PipeTransform {
 
     private cityMap: Map<string, City> = new Map<string, City>();
 
+    private cityData: City;
+
     constructor(private weatherSrv: WeatherService) {
     }
 
-    transform(value: string): Observable<City> {
-        return this.findCityWeather(value);
+    transform(value: string): City {
+        this.findCityWeather(value).subscribe((city: City) => {
+            this.cityMap.set(value, city);
+            this.cityData = city;
+        });
+
+        return this.cityData;
     }
 
     private findCityWeather(cityName: string): Observable<City> {
@@ -26,10 +33,6 @@ export class CityWeatherPipe implements PipeTransform {
             return Observable.of(this.cityMap.get(cityName));
         } else {
             return this.weatherSrv.getCityWeather(cityName)
-                .subscribe((city: City) => {
-                    this.cityMap.set(cityName, city);
-                    return city;
-                })
         }
     }
 }

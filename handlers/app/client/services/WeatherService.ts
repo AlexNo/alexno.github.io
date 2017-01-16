@@ -42,7 +42,8 @@ export default class WeatherService {
         return this.http.get(this.cityApi, {
             search: this.paramsForCity(cityName)
         }).map((r: Response): City => {
-            return r.json() as City;
+            let city: City = r.json() as City;
+            return city;
         });
     }
 
