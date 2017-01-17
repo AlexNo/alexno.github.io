@@ -1,12 +1,14 @@
 const NODE_ENV = process.env.NODE_ENV || 'dev';
 const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 module.exports = {
     entry: {
-        app: './handlers/app/client/',
+        app: [
+            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+            './handlers/app/client/'
+        ],
         vendor: [
             'core-js/es7/reflect',
             'zone.js',
@@ -43,20 +45,8 @@ module.exports = {
           filename: 'styles.css'
         }),
 
-        new webpack.HotModuleReplacementPlugin(),
-
-        new HtmlWebpackPlugin({
-            template: 'templates/index.html',
-            inject: 'body',
-            filename: '../index.html',
-            hash: true,
-            chunks: ['vendor', 'app']
-        })
+        new webpack.HotModuleReplacementPlugin()
     ],
-
-    externals: {
-        "google": "google"
-    },
 
     resolve: {
         modules: [
@@ -74,11 +64,10 @@ module.exports = {
             loader: 'html-loader'
         }, {
             test: /\.css$/,
-            // loader: NODE_ENV == 'prod' ? 'style!css' : ExtractTextPlugin.extract('style', 'css')
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: "style-loader",
-            loader: "css-loader"
-        })
+            loader: ExtractTextPlugin.extract({
+                fallbackLoader: 'style-loader',
+                loader: 'css-loader'
+            })
         }, {
             test: /\.styl$/,
             exclude: /node_modules/,
