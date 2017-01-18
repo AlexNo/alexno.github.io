@@ -3,6 +3,6 @@
 <weather-grid (onSelect)="selectCity($event)"
               (onDelete)="deleteCity($event)"></weather-grid>
 
-<sebm-google-map [latitude]="lat" [longitude]="lng">
+<sebm-google-map [latitude]="lat" [longitude]="lng" style="height: 300px;">
     <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
 </sebm-google-map>

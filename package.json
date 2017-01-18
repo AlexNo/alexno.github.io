@@ -19,7 +19,7 @@
     "@angular/http": "~2.4.0",
     "@angular/platform-browser": "~2.4.0",
     "@angular/platform-browser-dynamic": "~2.4.0",
-    "angular2-google-maps": "^0.16.0",
+    "angular2-google-maps": "^0.17.0",
     "config": "^1.24.0",
     "core-js": "^2.4.1",
     "es6-shim": "^0.35.1",
@@ -62,7 +62,7 @@
     "tslint": "^4.0.2",
     "tslint-loader": "^3.2.0",
     "typescript": "2.0.10",
-    "webpack": "^2.2.0-rc.7",
+    "webpack": "^2.2.0",
     "webpack-dev-server": "^1.16.2"
   }
 }

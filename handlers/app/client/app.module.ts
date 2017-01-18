@@ -13,13 +13,16 @@ import { CityWeatherDetailComponent }  from './components/city-weather-detail';
 import { HeaderComponent }  from './components/header';
 import { FooterComponent }  from './components/footer';
 import { PaginationComponent }  from './components/pagination';
+import { WindDetails } from "./components/wind-details/wind-details";
+
+import { WindDirection }  from './directives/WindDirection';
 
 import {ENV_CONFIG, APP_CONFIG} from './config';
 
 import WeatherService from './services/WeatherService';
 import LocationService from './services/LocationService';
 import {TemperaturePipe} from './pipes/TemperaturePipe';
-import {CityWeatherPipe, WeatherFormatterPipe} from './pipes/CityWeatherPipes';
+import {CityWeatherPipe} from './pipes/CityWeatherPipes';
 
 @NgModule({
     imports:      [
@@ -34,6 +37,7 @@ import {CityWeatherPipe, WeatherFormatterPipe} from './pipes/CityWeatherPipes';
         AppComponent,
         WeatherGrid,
         WeatherView,
+        WindDetails,
         CityWeatherSearchComponent,
         CityWeatherDetailComponent,
         HeaderComponent,
@@ -41,7 +45,7 @@ import {CityWeatherPipe, WeatherFormatterPipe} from './pipes/CityWeatherPipes';
         PaginationComponent,
         TemperaturePipe,
         CityWeatherPipe,
-        WeatherFormatterPipe
+        WindDirection
     ],
     providers: [
         WeatherService,
