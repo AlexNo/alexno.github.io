@@ -16,13 +16,14 @@ import { PaginationComponent }  from './components/pagination';
 import { WindDetails } from "./components/wind-details/wind-details";
 
 import { WindDirection }  from './directives/WindDirection';
+import { HeatMap } from "./directives/HeatMap";
 
 import {ENV_CONFIG, APP_CONFIG} from './config';
 
 import WeatherService from './services/WeatherService';
 import LocationService from './services/LocationService';
-import {TemperaturePipe} from './pipes/TemperaturePipe';
-import {CityWeatherPipe} from './pipes/CityWeatherPipes';
+import { TemperaturePipe } from './pipes/TemperaturePipe';
+import { CityWeatherPipe } from './pipes/CityWeatherPipes';
 
 @NgModule({
     imports:      [
@@ -45,7 +46,8 @@ import {CityWeatherPipe} from './pipes/CityWeatherPipes';
         PaginationComponent,
         TemperaturePipe,
         CityWeatherPipe,
-        WindDirection
+        WindDirection,
+        HeatMap
     ],
     providers: [
         WeatherService,

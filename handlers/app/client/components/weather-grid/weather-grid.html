@@ -21,7 +21,7 @@
     </thead>
 
     <tbody>
-    <tr *ngFor="let city of page.list" [ngClass]="{'favorite': city.isFavorite}">
+    <tr *ngFor="let city of page.list" [ngClass]="{'favorite': city.isFavorite}" [heatMap]="city.main.temp">
         <td>{{city.dt * 1000 | date: 'dd/MM/yyyy'}}</td>
         <td (click)="selectCity(city)">
             <a href="#!" class="collection-item">{{city.name}}</a>
