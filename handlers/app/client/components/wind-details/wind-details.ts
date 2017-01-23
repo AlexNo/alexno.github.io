@@ -3,7 +3,7 @@ import Wind from "../../models/Wind";
 
 @Component({
     selector: 'wind-details',
-    templateUrl: './wind-details.html'
+    template: require('./wind-details.html')
 })
 export class WindDetails implements OnInit {
     

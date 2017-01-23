@@ -47,8 +47,8 @@ class DataGridProvider {
 
 @Component({
     selector: 'weather-grid',
-    // styleUrls: ['./weather-grid.css'],
-    templateUrl: './weather-grid.html',
+    // styles: [require('./weather-grid.css')],
+    template: require('./weather-grid.html'),
     providers: [DataGridProvider],
     changeDetection: ChangeDetectionStrategy.OnPush
 })

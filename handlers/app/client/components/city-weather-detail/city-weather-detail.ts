@@ -3,8 +3,8 @@ import City from "../../models/City";
 
 @Component({
     selector: 'city-weather-detail',
-    // styleUrls: ['./city-weather-detail.css'],
-    templateUrl: './city-weather-detail.html',
+    // styles: [require('./city-weather-detail.css')],
+    template: require('./city-weather-detail.html'),
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityWeatherDetailComponent implements OnInit {

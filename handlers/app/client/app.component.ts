@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'my-app',
     // styleUrls: ['./app.css'],
-    templateUrl: './app.html'
+    template: require('./app.html')
 })
 export class AppComponent {
     name: string = 'Angular';

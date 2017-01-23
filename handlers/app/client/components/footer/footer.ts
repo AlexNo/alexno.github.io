@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'weather-footer',
-    // styleUrls: ['./footer.css'],
-    templateUrl: './footer.html'
+    // styles: [require('./footer.css')],
+    template: require('./footer.html')
 })
 export class FooterComponent implements OnInit {
     constructor() { }

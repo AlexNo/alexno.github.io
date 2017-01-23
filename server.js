@@ -13,7 +13,20 @@ config.handlers.forEach(handler => {
 app.use(middleware({
   compiler: compiler,
   dev: {
-    publicPath: '/dist/'
+    publicPath: '/dist/',
+    hot: true,
+    noInfo: false,
+    quiet: false,
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: true
+    },
+    stats: {
+      colors: true
+    }
+  },
+  hot: {
+
   }
 }));
 

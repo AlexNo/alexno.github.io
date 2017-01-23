@@ -8,8 +8,8 @@ import CityShort from "../../models/CityShort";
 
 @Component({
     selector: 'weather-view',
-    // styleUrls: ['./weather-view.css'],
-    templateUrl: './weather-view.html'
+    // styles: [require('./weather-view.css')],
+    template: require('./weather-view.html')
 })
 export class WeatherView implements OnInit {
 
