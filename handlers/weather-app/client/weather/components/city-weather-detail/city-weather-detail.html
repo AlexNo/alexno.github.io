@@ -1,0 +1,8 @@
+<ul class="collection" *ngIf="city">
+    <li>    <input [(ngModel)]="city.name" type="text">
+    </li>
+    <li class="collection-item">{{city.name}}</li>
+    <li class="collection-item">Coordinates: lat - {{city.coord.lat}}, lon - {{city.coord.lon}}</li>
+    <li class="collection-item">Clouds, % - {{city.clouds.all}}</li>
+    <li class="collection-item">Wind - {{city.wind.speed}}</li>
+</ul>
