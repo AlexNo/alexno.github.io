@@ -30,10 +30,4 @@ app.use(middleware({
   }
 }));
 
-console.log('test');
-
-if (module.hot) {
-  module.hot.accept()
-}
-
 module.exports = app;

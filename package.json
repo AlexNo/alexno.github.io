@@ -1,15 +1,19 @@
 {
   "name": "weather",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.ts",
+  "description": "Weather App",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/webpack/bin/webpack.js",
     "dev": "NODE_PATH=./handlers:./modules && ./node_modules/nodemon/bin/nodemon.js --harmony index.js",
     "analyse": "./node_modules/webpack/bin/webpack.js --profile --display-modules --display-reasons"
   },
-  "author": "",
+  "author": "Alexander Novik",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexno/alexno.github.io.git"
+  },
   "license": "ISC",
   "dependencies": {
     "@angular/common": "~2.4.0",
@@ -55,7 +59,7 @@
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.24.1",
     "json-loader": "^0.5.4",
-    "koa-webpack": "^0.1.10",
+    "koa-webpack": "^0.2.0",
     "nodemon": "^1.11.0",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
