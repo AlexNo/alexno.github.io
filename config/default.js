@@ -16,7 +16,8 @@ module.exports = {
     'errors',
     'bodyParser',
     'app',
-    'api'
+    'api',
+    'webpack'
   ],
   template: {
     // template.root uses config.root
