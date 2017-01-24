@@ -17,6 +17,7 @@ module.exports = {
     'bodyParser',
     'weather-app',
     'api',
+    'settings',
     'webpack'
   ],
   template: {
