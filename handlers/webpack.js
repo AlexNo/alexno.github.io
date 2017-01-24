@@ -1,5 +1,5 @@
 const Webpack = require('webpack');
-const wpConfig = require('./webpack.config.js');
+const wpConfig = require('../webpack.config.js');
 const middleware = require('koa-webpack');
 const compiler = Webpack(wpConfig);
 

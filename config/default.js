@@ -15,8 +15,9 @@ module.exports = {
     'templates',
     'errors',
     'bodyParser',
-    'app',
+    'weather-app',
     'api',
+    'settings',
     'webpack'
   ],
   template: {

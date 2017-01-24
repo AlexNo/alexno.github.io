@@ -7,7 +7,10 @@ module.exports = {
     entry: {
         app: [
             'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-            './handlers/app/client/'
+            './handlers/weather-app/client/'
+        ],
+        settings: [
+            './handlers/settings/client/'
         ],
         vendor: [
             'core-js/es7/reflect',
