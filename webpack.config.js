@@ -1,13 +1,14 @@
-const NODE_ENV = process.env.NODE_ENV || 'dev';
+const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
+const isDevelopment = NODE_ENV === 'development';
+
 module.exports = {
     entry: {
         app: [
-            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-            './handlers/weather-app/client/'
+            isDevelopment ? './handlers/weather-app/client/' : ''
         ],
         settings: [
             './handlers/settings/client/'

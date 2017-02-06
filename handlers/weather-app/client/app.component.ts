@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
     template: require('./app.html')
 })
 export class AppComponent {
-    name: string = 'Angular';
+    name: string = 'Angular!!!';
 }
