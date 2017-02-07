@@ -24,7 +24,7 @@ export class CityWeatherPipe implements PipeTransform {
         if (this.cityMap.has(cityName)) {
             return Observable.of(this.cityMap.get(cityName));
         } else {
-            return this.weatherSrv.getCityWeather(cityName)
+            return this.weatherSrv.weatherForCity(cityName)
         }
     }
 }

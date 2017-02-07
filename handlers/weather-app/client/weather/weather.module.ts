@@ -11,7 +11,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {SharedModule} from '../shared';
 
 import {WeatherGrid}  from './components/weather-grid';
-import {WeatherView}  from './components/weather-view';
+import {WeatherView}  from './components/weather-container';
 import {CityWeatherSearchComponent}  from './components/city-weather-search';
 import {CityWeatherDetailComponent}  from './components/city-weather-detail';
 

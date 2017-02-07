@@ -1,38 +1,62 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 import City from "../../models/City";
+import Geoposition from "../../models/Geoposition";
 
 export const ActionTypes = {
-    SELECT: '[CityWeather] Select',
-    LOAD: '[CityWeather] Load',
-    LOAD_SUCCESS: '[CityWeather] LoadSuccess',
-    SEARCH: '[CityWeather] Search',
+  SELECT: '[CityWeather] Select',
+  LOAD_CITY_WEATHER: '[CityWeather] Load',
+  LOAD_CITY_SUCCESS: '[CityWeather] LoadSuccess',
+  LOAD_NEARBY: '[CityWeather] LoadNearbyCities',
+  LOAD_NEARBY_SUCCESS: '[CityWeather] LoadNearbySuccess',
+  SEARCH: '[CityWeather] Search',
 };
 
 export class SelectAction implements Action {
-    type = ActionTypes.SELECT;
+  type = ActionTypes.SELECT;
 
-    constructor (public payload: City) {}
+  constructor(public payload: City) {
+  }
 }
 
 export class LoadAction implements Action {
-    type = ActionTypes.LOAD;
-    constructor (public payload: City) {}
+  type = ActionTypes.LOAD_CITY_WEATHER;
+
+  constructor(public payload: string) {
+  }
 }
 
 export class LoadSuccessAction implements Action {
-    type = ActionTypes.LOAD_SUCCESS;
+  type = ActionTypes.LOAD_CITY_SUCCESS;
 
-    constructor (public payload: City[]) {}
+  constructor(public payload: City) {
+  }
+}
+
+export class LoadNearbyAction implements Action {
+  type = ActionTypes.LOAD_NEARBY;
+
+  constructor(public payload: Geoposition) {
+  }
+}
+
+export class LoadNearbySuccessAction implements Action {
+  type = ActionTypes.LOAD_NEARBY_SUCCESS;
+
+  constructor(public payload: City[]) {
+  }
 }
 
 export class SearchAction implements Action {
-    type = ActionTypes.SEARCH;
+  type = ActionTypes.SEARCH;
 
-    constructor (public payload: City) {}
+  constructor(public payload: City) {
+  }
 }
 
 export type Actions
-    = SearchAction
-    | LoadAction
-    | LoadSuccessAction
-    | SelectAction;
+  = SearchAction
+  | LoadNearbyAction
+  | LoadNearbySuccessAction
+  | LoadAction
+  | LoadSuccessAction
+  | SelectAction;

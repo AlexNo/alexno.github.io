@@ -4,7 +4,7 @@ import {
     Output,
     EventEmitter,
     ChangeDetectionStrategy,
-    ChangeDetectorRef
+    ChangeDetectorRef, Input
 } from '@angular/core';
 
 import {CITIES} from "../../../../../../fixtures/mock";
@@ -63,23 +63,25 @@ export class WeatherGrid implements OnInit {
     @Output('onSelect') onSelect = new EventEmitter<City>();
     @Output('onDelete') onDelete = new EventEmitter<number>();
 
+    @Input('weatherData') weatherData: City[];
+
     constructor(private weather: WeatherService,
                 private ref: ChangeDetectorRef,
                 private dataProvider: DataGridProvider) {
     }
 
     ngOnInit() {
-        console.log('WeatherGrid initialized!');
-        let self = this;
-        self.ref.detach();
-        this.page.totalPages =
-            Math.ceil(this.dataProvider.cities.length / this.page.pageSize);
-        this.sort();
-        this.render();
-
-        setInterval(() => {
-            self.ref.reattach();
-        }, 5000);
+        // console.log('WeatherGrid initialized!');
+        // let self = this;
+        // self.ref.detach();
+        // this.page.totalPages =
+        //     Math.ceil(this.dataProvider.cities.length / this.page.pageSize);
+        // this.sort();
+        // this.render();
+        //
+        // setInterval(() => {
+        //     self.ref.reattach();
+        // }, 5000);
     }
 
     toPage(page: number): void {

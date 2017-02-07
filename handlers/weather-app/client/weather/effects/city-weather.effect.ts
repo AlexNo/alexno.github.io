@@ -3,6 +3,7 @@ import {Actions, Effect} from "@ngrx/effects";
 import WeatherService from "../../core/services/WeatherService";
 import * as CityWeatherActions from '../actions/city-weather.actions';
 import {Observable} from "rxjs";
+import Geoposition from "../../models/Geoposition";
 
 
 @Injectable()
@@ -10,14 +11,26 @@ export class CityWeatherEffect {
   constructor(private actions$: Actions, private cityWeatherService: WeatherService) {
   }
 
-  @Effect() loadCitiesWeather = this.actions$.ofType(CityWeatherActions.ActionTypes.LOAD)
-    .map(action => {
-      return action.payload;
-    })
-    .switchMap(() => this.cityWeatherService.getNearbyWeather()
+  /**
+   *
+   */
+  @Effect()
+  loadNearbyCitiesWeather$ = this.actions$.ofType(CityWeatherActions.ActionTypes.LOAD_NEARBY)
+    .map(action => action.payload)
+    .switchMap((position: Geoposition) => this.cityWeatherService.weatherForNearbyCities(position)
+      .map(res => {
+        return new CityWeatherActions.LoadNearbySuccessAction(res);
+      }))
+      .catch(() => Observable.of(new CityWeatherActions.LoadNearbySuccessAction([])));
+
+
+  @Effect()
+  loadCityWeather$ = this.actions$.ofType(CityWeatherActions.ActionTypes.LOAD_CITY_WEATHER)
+    .map(action => action.payload)
+    .switchMap((cityName: string) => this.cityWeatherService.weatherForCity(cityName)
       .map(res => {
         return new CityWeatherActions.LoadSuccessAction(res);
       }))
-      .catch(() => Observable.of(new CityWeatherActions.LoadSuccessAction([])));
+    .catch(() => Observable.of(new CityWeatherActions.LoadSuccessAction(null)));
 }
 

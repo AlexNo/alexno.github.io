@@ -14,20 +14,20 @@ export default class WeatherService {
     private weatherApi: string = 'http://localhost:3000/api/weather';
     private cityApi: string = 'http://localhost:3000/api/city';
 
-    constructor(private http: Http, private locationSrv: LocationService) {
-    };
+    constructor(private http: Http) {};
 
-    getNearbyWeather(): Observable<City[]> {
-        let weatherPromise = this.paramsForCollectionOfCities();
-        let self = this;
+    weatherForNearbyCities(position: Geoposition): Observable<City[]> {
+        let params = this.paramsForCollectionOfCities(position);
 
-        return Observable.from(weatherPromise)
-            .flatMap(data => {
-                return self.getWeather(data)
-            })
+        return this.http.get(this.weatherApi, {
+            search: params
+        })
+          .map(this.extractData)
+          .map(this.getList);
+        // .map(this.toCityShort);
     }
 
-    getCityWeather(cityName: string): Observable<City> {
+    weatherForCity(cityName: string): Observable<City> {
 
         return this.http.get(this.cityApi, {
             search: this.paramsForCity(cityName)
@@ -35,15 +35,6 @@ export default class WeatherService {
             let city: City = r.json() as City;
             return city;
         });
-    }
-
-    private getWeather(params:URLSearchParams): Observable<City[]> {
-        return this.http.get(this.weatherApi, {
-            search: params
-        })
-            .map(this.extractData)
-            .map(this.getList);
-            // .map(this.toCityShort);
     }
 
     private extractData(res: Response) {
@@ -70,15 +61,13 @@ export default class WeatherService {
         })
     }
 
-    private paramsForCollectionOfCities(): Promise<URLSearchParams> {
+    private paramsForCollectionOfCities(position: Geoposition): URLSearchParams {
         let params = new URLSearchParams();
 
-        return this.locationSrv.getPosition().then((position: Geoposition) => {
-            params.set('lat', String(position.coords.latitude));
-            params.set('lon', String(position.coords.longitude));
+        params.set('lat', String(position.coords.latitude));
+        params.set('lon', String(position.coords.longitude));
 
-            return params;
-        });
+        return params;
     }
 
     private paramsForCity(city: string): URLSearchParams {

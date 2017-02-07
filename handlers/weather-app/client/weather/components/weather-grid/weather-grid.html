@@ -21,7 +21,7 @@
     </thead>
 
     <tbody>
-    <tr *ngFor="let city of page.list" [ngClass]="{'favorite': city.isFavorite}" [heatMap]="city.main.temp">
+    <tr *ngFor="let city of weatherData" [ngClass]="{'favorite': city.isFavorite}" [heatMap]="city.main.temp">
         <td>{{city.dt * 1000 | date: 'dd/MM/yyyy'}}</td>
         <td (click)="selectCity(city)">
             <a href="#!" class="collection-item">{{city.name}}</a>
@@ -39,10 +39,10 @@
     <tfoot>
     <tr>
         <td colspan="3">
-            <weather-pagination [current]="page.currentPage"
-                                [total]="page.totalPages"
-                                (onPage)="toPage($event)">
-            </weather-pagination>
+            <!--<weather-pagination [current]="page.currentPage"-->
+                                <!--[total]="page.totalPages"-->
+                                <!--(onPage)="toPage($event)">-->
+            <!--</weather-pagination>-->
         </td>
     </tr>
     </tfoot>

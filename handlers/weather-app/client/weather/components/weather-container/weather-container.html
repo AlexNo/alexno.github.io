@@ -1,4 +1,5 @@
 <city-weather-search></city-weather-search>
 
-<weather-grid (onSelect)="selectCity($event)"
+<weather-grid [weatherData]="nearbyCities"
+              (onSelect)="selectCity($event)"
               (onDelete)="deleteCity($event)"></weather-grid>
