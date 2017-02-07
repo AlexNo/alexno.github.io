@@ -88,7 +88,7 @@ export class WeatherGrid implements OnInit {
     }
 
     selectCity(city: City) {
-        // this.onSelect.emit(city);
+        this.onSelect.emit(city);
 
         this.dataProvider.cities = this.dataProvider.cities.map(elem => {
             if (elem.isFavorite) {

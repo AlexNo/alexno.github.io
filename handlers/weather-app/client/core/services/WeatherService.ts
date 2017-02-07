@@ -17,7 +17,7 @@ export default class WeatherService {
     constructor(private http: Http, private locationSrv: LocationService) {
     };
 
-    getNearbyWeather(): Observable<CityShort[]> {
+    getNearbyWeather(): Observable<City[]> {
         let weatherPromise = this.paramsForCollectionOfCities();
         let self = this;
 
@@ -37,13 +37,13 @@ export default class WeatherService {
         });
     }
 
-    private getWeather(params:URLSearchParams): Observable<CityShort[]> {
+    private getWeather(params:URLSearchParams): Observable<City[]> {
         return this.http.get(this.weatherApi, {
             search: params
         })
             .map(this.extractData)
-            .map(this.getList)
-            .map(this.toCityShort);
+            .map(this.getList);
+            // .map(this.toCityShort);
     }
 
     private extractData(res: Response) {

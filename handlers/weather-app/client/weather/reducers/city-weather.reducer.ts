@@ -20,11 +20,12 @@ const initialState: State = {
 export function reducer(state = initialState, action: CityWeatherActions.Actions): State {
   switch (action.type) {
     case CityWeatherActions.ActionTypes.SELECT: {
+      action = <CityWeatherActions.SelectAction> action;
       const payload: City = <City>action.payload;
 
       return Object.assign({}, state, {selectedCity: payload.id});
     }
-    case CityWeatherActions.ActionTypes.LOAD: {
+    case CityWeatherActions.ActionTypes.LOAD_SUCCESS: {
       const cities: City[] = <City[]>action.payload;
       const citiesIds = cities.map(city => city.id);
 
@@ -34,6 +35,7 @@ export function reducer(state = initialState, action: CityWeatherActions.Actions
         selectedCity: state.selectedCity
       };
     }
+    case CityWeatherActions.ActionTypes.LOAD:
     default: {
       return state;
     }
