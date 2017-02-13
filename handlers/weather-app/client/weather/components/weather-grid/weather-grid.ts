@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 
 import {CITIES} from "../../../../../../fixtures/mock";
-import WeatherService from "../../../core/services/WeatherService";
 import City from "../../../models/City";
 import Page from "../../../models/paging/Page";
 
@@ -65,8 +64,7 @@ export class WeatherGrid implements OnInit {
 
     @Input('weatherData') weatherData: City[];
 
-    constructor(private weather: WeatherService,
-                private ref: ChangeDetectorRef,
+    constructor(private ref: ChangeDetectorRef,
                 private dataProvider: DataGridProvider) {
     }
 

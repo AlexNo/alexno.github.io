@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import CityShort from "../../../models/CityShort";
 import LocationService from "../../../core/services/LocationService";
-import WeatherService from "../../../core/services/WeatherService";
 import Geoposition from "../../../models/Geoposition";
 import City from "../../../models/City";
 import * as fromRoot from '../../reducers';
 import {Store} from "@ngrx/store";
-import {Subscription} from "rxjs";
-import * as from from '../../reducers/city-weather.reducer';
+import {Subscription, Observable} from "rxjs";
+import * as fromCityWeather from '../../reducers/city-weather.reducer';
 import * as CityWeatherAction from "../../actions/city-weather.actions";
 
 @Component({
@@ -18,6 +17,7 @@ import * as CityWeatherAction from "../../actions/city-weather.actions";
 export class WeatherView implements OnInit {
 
   private citiesWeather: Subscription;
+  private cities$: Observable<City[]>;
   lat: number;
   lng: number;
   zoom: number = 4;
@@ -25,12 +25,14 @@ export class WeatherView implements OnInit {
   nearbyCities: Array<City>;
 
   constructor(private locationSrv: LocationService,
-              private weather: WeatherService, private store: Store<fromRoot.State>) {
+              private store: Store<fromRoot.State>) {
   }
 
   ngOnInit() {
+    this.cities$ = this.store.select((s: fromRoot.State) => s.cityWeather)
+      .map((citiesState: fromCityWeather.State): City[] => Object.values(citiesState.entities));
     this.citiesWeather = this.store.select((s: fromRoot.State) => s.cityWeather)
-      .subscribe((citiesState: from.State): void => {
+      .subscribe((citiesState: fromCityWeather.State): void => {
         this.nearbyCities = Object.values(citiesState.entities);
       });
 

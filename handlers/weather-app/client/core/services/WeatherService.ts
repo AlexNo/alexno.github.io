@@ -28,12 +28,10 @@ export default class WeatherService {
     }
 
     weatherForCity(cityName: string): Observable<City> {
-
         return this.http.get(this.cityApi, {
             search: this.paramsForCity(cityName)
         }).map((r: Response): City => {
-            let city: City = r.json() as City;
-            return city;
+            return r.json() as City;
         });
     }
 

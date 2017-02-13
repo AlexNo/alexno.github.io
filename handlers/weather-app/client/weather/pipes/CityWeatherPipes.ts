@@ -1,7 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {Observable} from "rxjs";
 import City from "../../models/City";
-import WeatherService from "../../core/services/WeatherService";
+import * as fromRoot from '../reducers';
+import {Store} from "@ngrx/store";
+import * as fromCityWeather from '../reducers/city-weather.reducer';
+import * as CityWeatherAction from "../actions/city-weather.actions";
 
 /**
  * Pipe convert
@@ -12,8 +15,17 @@ import WeatherService from "../../core/services/WeatherService";
 export class CityWeatherPipe implements PipeTransform {
 
     private cityMap: Map<string, City> = new Map<string, City>();
+    private city$: Observable<City>;
 
-    constructor(private weatherSrv: WeatherService) {
+    constructor(private store: Store<fromRoot.State>) {
+        this.city$ = this.store.select((s: fromRoot.State) => s.cityWeather)
+          .map((citiesState: fromCityWeather.State): City => {
+            const city: City = citiesState.searchResult;
+            if (city) {
+                this.cityMap.set(city.name, city);
+            }
+            return city;
+          });
     }
 
     transform(value: string): Observable<City> {
@@ -24,7 +36,8 @@ export class CityWeatherPipe implements PipeTransform {
         if (this.cityMap.has(cityName)) {
             return Observable.of(this.cityMap.get(cityName));
         } else {
-            return this.weatherSrv.weatherForCity(cityName)
+            this.store.dispatch(new CityWeatherAction.LoadAction(cityName));
+            return this.city$;
         }
     }
 }
