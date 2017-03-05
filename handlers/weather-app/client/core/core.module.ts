@@ -8,9 +8,11 @@ import {
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../shared';
+import { RoutingModule } from "../router";
 
 import { HeaderComponent }  from './components/header';
 import { FooterComponent }  from './components/footer';
+import {PageNotFoundComponent} from "./components/page-not-found/page-not-found";
 
 import WeatherService from './services/WeatherService';
 import LocationService from './services/LocationService';
@@ -18,15 +20,19 @@ import LocationService from './services/LocationService';
 @NgModule({
     imports:      [
         CommonModule,
-        SharedModule
+        SharedModule,
+        RoutingModule
     ],
     declarations: [
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        PageNotFoundComponent
     ],
     exports:      [
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        PageNotFoundComponent,
+        RoutingModule
     ],
     providers:    [
         WeatherService,

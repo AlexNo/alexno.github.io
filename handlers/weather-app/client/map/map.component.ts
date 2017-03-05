@@ -6,8 +6,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export default class WeatherMapComponent implements OnInit {
 
-    @Input() lat: number;
-    @Input() lon: number;
+    @Input() lat: number = 53;
+    @Input() lon: number = 27;
 
     constructor() { }
 

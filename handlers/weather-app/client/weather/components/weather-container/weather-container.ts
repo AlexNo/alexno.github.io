@@ -36,6 +36,9 @@ export class WeatherView implements OnInit {
         this.nearbyCities = Object.values(citiesState.entities);
       });
 
+    this.store.select((s: fromRoot.State) => s.cityWeather)
+      .map((citiesState: fromCityWeather.State): number => citiesState.selectedCity)
+
     this.locationSrv.getPosition().then((position: Geoposition) => {
       this.lat = position.coords.latitude;
       this.lng = position.coords.longitude;
@@ -46,6 +49,7 @@ export class WeatherView implements OnInit {
   }
 
   selectCity(city: City) {
+    this.store.dispatch(new CityWeatherAction.SelectAction(city));
     // this.nearbyCities = this.nearbyCities.map(elem => {
     //     if (elem.isFavorite) {
     //         elem.isFavorite = false;
