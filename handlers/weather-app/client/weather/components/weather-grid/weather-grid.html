@@ -24,7 +24,7 @@
     <tr *ngFor="let city of weatherData" [ngClass]="{'favorite': city.isFavorite}" [heatMap]="city.main.temp">
         <td>{{city.dt * 1000 | date: 'dd/MM/yyyy'}}</td>
         <td (click)="selectCity(city)">
-            <a href="#!" class="collection-item">{{city.name}}</a>
+            <a routerLink="/weatherDetails/{{city.id}}" class="collection-item">{{city.name}}</a>
         </td>
         <td>{{city.main.temp | temperature : sourceMeasurement : displayMeasurement}}</td>
         <td>{{city.clouds.all}}</td>

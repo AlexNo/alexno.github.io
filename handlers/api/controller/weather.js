@@ -36,12 +36,15 @@ exports.weather = async (ctx, next) => {
 };
 
 exports.city = async (ctx, next) => {
+    const qs = {
+        APPID: config.weather.apiKey
+    };
+
+    Object.assign(qs, ctx.query);
+
     ctx.body = await rp({
         uri: cityAPI,
-        qs: {
-            APPID: config.weather.apiKey,
-            q: ctx.query.city
-        },
+        qs: qs,
         json: true
     });
 };

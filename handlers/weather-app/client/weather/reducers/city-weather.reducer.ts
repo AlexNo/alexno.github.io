@@ -1,21 +1,21 @@
 import * as CityWeatherActions from '../actions/city-weather.actions';
 import City from "../../models/City";
-// import {IState, IReducer} from "./reducer";
-import {Action} from "@ngrx/store";
+import {LoadSuccessAction} from "../actions/city-weather.actions";
 
 
 export interface State {
   ids: number[],
   entities: {[id: number]: City},
   searchResult: City,
+  current: City,
   selectedCity: number | null
 }
-
 
 const initialState: State = {
   ids: [],
   entities: {},
   searchResult: null,
+  current: null,
   selectedCity: null
 };
 
@@ -35,12 +35,23 @@ export function reducer(state = initialState, action: CityWeatherActions.Actions
     }
 
     case CityWeatherActions.ActionTypes.LOAD_CITY_SUCCESS: {
-      const searchResult: City = <City>action.payload;
+      const act = <LoadSuccessAction>action;
+      const field = act.result;
 
-      return Object.assign({}, state, {searchResult});
+      if (!field) {
+        return state;
+      }
+
+      return Object.assign({}, state, {
+        [field]: act.payload
+      });
     }
 
-    case CityWeatherActions.ActionTypes.LOAD_CITY_WEATHER:
+    case CityWeatherActions.ActionTypes.LOAD_CITY_WEATHER: {
+      const current: City = <City> action.payload;
+
+      return Object.assign({}, state, {current});
+    }
     case CityWeatherActions.ActionTypes.LOAD_NEARBY:
     default: {
       return state;

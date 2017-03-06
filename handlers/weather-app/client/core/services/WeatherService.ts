@@ -29,7 +29,15 @@ export default class WeatherService {
 
     weatherForCity(cityName: string): Observable<City> {
         return this.http.get(this.cityApi, {
-            search: this.paramsForCity(cityName)
+            search: this.paramsForCity(cityName, 'q')
+        }).map((r: Response): City => {
+            return r.json() as City;
+        });
+    }
+
+    weatherForCityById(id: number): Observable<City> {
+        return this.http.get(this.cityApi, {
+            search: this.paramsForCity(String(id), 'id')
         }).map((r: Response): City => {
             return r.json() as City;
         });
@@ -68,10 +76,10 @@ export default class WeatherService {
         return params;
     }
 
-    private paramsForCity(city: string): URLSearchParams {
+    private paramsForCity(param: string, field: string): URLSearchParams {
         let params = new URLSearchParams();
 
-        params.set('city', city);
+        params.set(field, param);
         return params;
     }
 }

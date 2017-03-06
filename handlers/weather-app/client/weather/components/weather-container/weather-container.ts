@@ -37,7 +37,7 @@ export class WeatherView implements OnInit {
       });
 
     this.store.select((s: fromRoot.State) => s.cityWeather)
-      .map((citiesState: fromCityWeather.State): number => citiesState.selectedCity)
+      .map((citiesState: fromCityWeather.State): number => citiesState.selectedCity);
 
     this.locationSrv.getPosition().then((position: Geoposition) => {
       this.lat = position.coords.latitude;

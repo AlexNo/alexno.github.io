@@ -14,6 +14,7 @@ import {WeatherGrid}  from './components/weather-grid';
 import {WeatherView}  from './components/weather-container';
 import {CityWeatherSearchComponent}  from './components/city-weather-search';
 import {CityWeatherDetailComponent}  from './components/city-weather-detail';
+import {WeatherDetailComponent} from "./components/weather-details/weather-details";
 
 import {PaginationComponent}  from './components/pagination';
 import {WindDetails} from "./components/wind-details/wind-details";
@@ -23,6 +24,7 @@ import {HeatMap} from "./directives/HeatMap";
 
 import {TemperaturePipe} from './pipes/TemperaturePipe';
 import {CityWeatherPipe} from './pipes/CityWeatherPipes';
+import {WeatherRoutingModule} from "./router/weather.router.module";
 
 @NgModule({
   imports: [
@@ -30,7 +32,8 @@ import {CityWeatherPipe} from './pipes/CityWeatherPipes';
     SharedModule,
     StoreModule.provideStore(reducer),
     EffectsModule.run(CityWeatherEffect),
-    StoreDevtoolsModule.instrumentOnlyWithExtension()
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    WeatherRoutingModule
   ],
   declarations: [
     WeatherGrid,
@@ -38,6 +41,7 @@ import {CityWeatherPipe} from './pipes/CityWeatherPipes';
     WindDetails,
     CityWeatherSearchComponent,
     CityWeatherDetailComponent,
+    WeatherDetailComponent,
     PaginationComponent,
     TemperaturePipe,
     CityWeatherPipe,

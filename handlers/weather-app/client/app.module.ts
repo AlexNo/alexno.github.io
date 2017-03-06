@@ -10,9 +10,9 @@ import { AppComponent }  from './app.component';
 @NgModule({
     imports:      [
         BrowserModule,
-        CoreModule.forRoot(),
         WeatherMapModule,
-        WeatherModule
+        WeatherModule,
+        CoreModule.forRoot()
     ],
     declarations: [
         AppComponent
